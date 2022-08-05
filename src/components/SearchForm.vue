@@ -1,7 +1,7 @@
 <template>
   <form ref="form" @submit.prevent="onSubmit" @reset="onReset">
     <div class="input-wrapper">
-      <input v-model.trim="searchValue" @input="validate" type="text" placeholder="Enter country..." />
+      <input v-model.trim="inputValue" @input="validate" type="text" placeholder="Enter country..." />
       <span v-if="!valid" class="error">Country is required!</span>
     </div>
     <div class="button-group">
@@ -13,11 +13,19 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
+import { clearLS } from '@/components/utilities/localStorage';
 
 export default {
   name: 'SearchForm',
+  computed: {
+    ...mapState({
+      searchValue: (state) => state.universities.searchValue,
+      universities: (state) => state.universities.universities,
+      status: (state) => state.universities.status
+    })
+  },
   data: () => ({
-    searchValue: '',
+    inputValue: '',
     valid: true,
     submitted: false
   }),
@@ -30,7 +38,7 @@ export default {
     }),
     validate() {
       if (!this.submitted) return;
-      if (!this.searchValue.length) {
+      if (!this.inputValue.length) {
         return (this.valid = false);
       } else {
         this.valid = true;
@@ -40,21 +48,19 @@ export default {
       this.submitted = true;
       this.validate();
 
-      if (this.valid) this.fetchUniversities(this.searchValue);
+      if (this.valid) this.fetchUniversities(this.inputValue);
     },
     onReset() {
+      clearLS();
       this.resetUniversities();
       this.$refs.form.reset();
-      this.searchValue = '';
+      this.inputValue = '';
       this.valid = true;
       this.submitted = false;
     }
   },
-  computed: {
-    ...mapState({
-      universities: (state) => state.universities.universities,
-      status: (state) => state.universities.status
-    })
+  mounted() {
+    this.inputValue = this.searchValue;
   }
 };
 </script>

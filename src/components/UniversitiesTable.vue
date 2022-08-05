@@ -39,6 +39,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import ErrorMessage from '@/components/ErrorMessage';
 import SpinnerBlock from '@/components/SpinnerBlock';
+import { saveToLS } from '@/components/utilities/localStorage';
 
 export default {
   name: 'UniversitiesTable',
@@ -55,11 +56,22 @@ export default {
     ...mapState({
       universities: (state) => state.universities.universities,
       favorites: (state) => state.universities.favorites,
+      searchValue: (state) => state.universities.searchValue,
       status: (state) => state.universities.status
     }),
     ...mapGetters({
       favoritesCount: 'universities/favoritesCount'
     })
+  },
+  watch: {
+    universities() {
+      if (this.status === 'success' && this.universities.length) {
+        saveToLS({ searchValue: this.searchValue, universities: this.universities, favorites: this.favorites });
+      }
+    },
+    favoritesCount() {
+      saveToLS({ searchValue: this.searchValue, universities: this.universities, favorites: this.favorites });
+    }
   }
 };
 </script>

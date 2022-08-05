@@ -1,12 +1,15 @@
 import universitiesService from '@/services/universitiesService';
+import { loadFromLS } from '@/components/utilities/localStorage';
+
+const { universities, searchValue, favorites } = loadFromLS();
 
 const universitiesModule = {
   namespaced: true,
   state: {
     status: 'idle',
-    universities: [],
-    favorites: [],
-    searchValue: ''
+    universities,
+    favorites,
+    searchValue
   },
   getters: {
     favoritesCount(state) {
