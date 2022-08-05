@@ -8,6 +8,11 @@ const universitiesModule = {
     favorites: [],
     searchValue: ''
   },
+  getters: {
+    favoritesCount(state) {
+      return state.universities.reduce((total, item) => (state.favorites.includes(item.name) ? total + 1 : total), 0);
+    }
+  },
   mutations: {
     setSearchValue(state, payload) {
       state.searchValue = payload;

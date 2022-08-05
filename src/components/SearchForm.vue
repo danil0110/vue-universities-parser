@@ -1,27 +1,14 @@
 <template>
-  <div>
-    <form ref="form" @submit.prevent="onSubmit" @reset="onReset">
-      <div class="input-wrapper">
-        <input v-model.trim="searchValue" @input="validate" type="text" placeholder="Enter country..." />
-        <span v-if="!valid" class="error">Country is required!</span>
-      </div>
-      <div class="button-group">
-        <button class="submit" :disabled="!valid">Search</button>
-        <button type="reset">Reset</button>
-      </div>
-    </form>
-    <div v-if="status === 'loading'">Loading...</div>
-    <div v-else-if="status === 'error'">Error: couldn't send a request</div>
-    <div v-else-if="status === 'success' && !universities.length">No universities were found</div>
-    <div v-else>
-      <div v-for="item in universities" :key="item.country + item.name">
-        <div>{{ item.country }}</div>
-        <div>{{ item.name }}</div>
-        <div>{{ item.webPage }}</div>
-        <br />
-      </div>
+  <form ref="form" @submit.prevent="onSubmit" @reset="onReset">
+    <div class="input-wrapper">
+      <input v-model.trim="searchValue" @input="validate" type="text" placeholder="Enter country..." />
+      <span v-if="!valid" class="error">Country is required!</span>
     </div>
-  </div>
+    <div class="button-group">
+      <button class="submit" :disabled="!valid">Search</button>
+      <button type="reset">Reset</button>
+    </div>
+  </form>
 </template>
 
 <script>

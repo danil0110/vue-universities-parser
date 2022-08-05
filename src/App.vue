@@ -3,15 +3,17 @@
     <div class="container">
       <h1>Universities Parser 🎓</h1>
       <SearchForm />
+      <UniversitiesTable />
     </div>
   </div>
 </template>
 
 <script>
 import SearchForm from '@/components/SearchForm';
+import UniversitiesTable from '@/components/UniversitiesTable';
 export default {
   name: 'App',
-  components: { SearchForm }
+  components: { UniversitiesTable, SearchForm }
 };
 </script>
 
