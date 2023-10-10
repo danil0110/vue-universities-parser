@@ -1,7 +1,5 @@
 # Vue Universities Parser 🎓
 
-It's a rewritten "Universities Parser" application with a usage of Vue framework. The original one you can find in [this repository](https://github.com/danil0110/galanix-test-tasks/tree/master/task-3).
-
 ## Features
 
 - Search universities by country
